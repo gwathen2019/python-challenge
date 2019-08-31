@@ -5,7 +5,7 @@ import csv
 #set up an absolute path
 
 #read in a .csv file
-  
+csvpath = os.path.join('Resources', 'budget_data.csv')
 
 #write a function that does:
     ## Number of months
@@ -23,15 +23,14 @@ def get_info(csv):
     avg_change = 0
     max_month = ""
     min_month = ""
-    #r.next()
     for row in csv:
         current_month = row[0]
-        pnl = row[1]
-        total += pnl
+        pnl = int(row[1])
+        #total += pnl
         months += 1
         if pnl > max_revenue:
             max_revenue = pnl
-            max_month = months
+            max_month = month
     return [months, total, max_month, max_revenue, min_month, min_revenue]
 
 
