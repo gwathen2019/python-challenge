@@ -3,7 +3,7 @@ import os
 import csv
 
 #set up an absolute path
-
+csvpath = os.path.join('Resources', 'budget_data2.csv')
 #read in a .csv file
   
 
@@ -20,6 +20,8 @@ def get_info(csv):
     total = 0
     max_revenue = 0
     min_revenue = 0
+    change_in_rev = 0
+    total_change = 0
     avg_change = 0
     max_month = ""
     min_month = ""
@@ -27,14 +29,24 @@ def get_info(csv):
     for row in csv:
         current_month = row[0]
         pnl = row[1]
-        total += pnl
+        pnl_int = int(pnl)
+        total += pnl_int
         months += 1
-        if pnl > max_revenue:
-            max_revenue = pnl
-            max_month = months
-    return [months, total, max_month, max_revenue, min_month, min_revenue]
 
-
+        if pnl_int > max_revenue:
+            max_revenue = pnl_int
+            max_month = current_month
+        
+        elif pnl_int < min_revenue:
+            min_revenue = pnl_int
+            min_month = current_month
+        
+        
+        #change_in_rev = pnl - 
+        #avg_change=total_change/months
+    
+    return [months, total, avg_change, max_month, max_revenue, min_month, min_revenue]
+    
 # Read file using CSV module
 with open(csvpath, newline='') as csvfile:
 
@@ -42,37 +54,28 @@ with open(csvpath, newline='') as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
     analysis = get_info(csvreader)
     #print(csvreader)
+    print(analysis)
 
-    # Read the header row first (skip this step if there is now header)
-    csv_header = next(csvreader)
-    print(f"CSV Header: {csv_header}")
+    #print Financial Analysis
+    print ("Financial Analysis")
+    print("----------------------------------------")
+    print(f"Total Months: {analysis [0]}")
 
+    print (f"Total: {analysis[1]}")
+    print (f"Average Change: {analysis[2]}")
+    print (f"Greatest Increase in Profits: {analysis [3]}, {analysis [4]}")
+    print (f"Greatest Decrease in Profits:  {analysis [5]}, {analysis [6]}")
 
-
+    print
 
 #with open (path) as file
     #csvreader = csv.reader(file, delimiter =",")
     #header = next csvreader
     #analysis = get_info(csvreader)
 
-with open(csvpath, newline='') as csvfile:
-
-    # CSV reader specifies delimiter and variable that holds contents
-    csvreader = csv.reader(csvfile, delimiter=',')
-
-    print(csvreader)
-
-    # Read the header row first (skip this step if there is now header)
-    csv_header = next(csvreader)
-    print(f"CSV Header: {csv_header}")
-
-    # Read each row of data after the header
-    for row in csvreader:
-        print(row)
 
 
-
-print (analysis[0, 1])
+#print (analysis[0, 1])
 
 
     # Read each row of data after the header
